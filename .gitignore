@@ -3,6 +3,7 @@ bin/
 packages/
 .vs/
 Debug/*
+obj/
 
 
 

@@ -1,29 +1,28 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Newtonsoft.Json;
-using src;
 using Xunit;
 
 namespace test
 {
-    public class TestMessage
+    public class TestMessage : ResourceTestBase
     {
+        [Fact]
+        public async Task should_be_ok_to_get_message()
+        {
+            HttpResponseMessage request = await Client.GetAsync(webApiUri + "message");
+
+            Assert.Equal(HttpStatusCode.OK, request.StatusCode);
+        }
+
         [Fact]
         public async Task should_get_correct_message()
         {
-            var config = new HttpConfiguration();
-            Bootstrap.Init(config);
-
-            var server = new HttpServer(config);
-            var client = new HttpClient(server);
-
-            HttpResponseMessage request = await client.GetAsync("http://webapi/message");
-            Assert.Equal(HttpStatusCode.OK, request.StatusCode);
+            HttpResponseMessage request = await Client.GetAsync(webApiUri + "message");
 
             var response = await request.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeAnonymousType(response, new {Message = default(string)});
+            var result = JsonConvert.DeserializeAnonymousType(response, new { Message = default(string) });
             Assert.Equal("Hello", result.Message);
         }
     }
