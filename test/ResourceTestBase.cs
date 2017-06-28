@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Newtonsoft.Json;
 using src;
 
 namespace test
@@ -29,7 +31,7 @@ namespace test
         protected static HttpServer CreateHttpServer()
         {
             var config = new HttpConfiguration();
-            Bootstrap.Init(config);
+            Bootstrapper.Init(config);
 
             var server = new HttpServer(config);
             return server;
@@ -39,6 +41,12 @@ namespace test
         {
             Server? .Dispose();
             Client? .Dispose();
+        }
+
+        protected static async Task<T> ReadAsJsonAsync<T>(HttpResponseMessage request, T template)
+        {
+            var response = await request.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeAnonymousType(response, template);
         }
     }
 }

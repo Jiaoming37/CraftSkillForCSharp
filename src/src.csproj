@@ -113,10 +113,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrap.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ExplicitResourceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ConvensionResourceController.cs" />
     <Compile Include="MessageController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

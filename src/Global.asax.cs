@@ -10,7 +10,7 @@ namespace src
         {
             HttpConfiguration config = GlobalConfiguration.Configuration;
 
-            Bootstrap.Init(config);
+            Bootstrapper.Init(config);
         }
     }
 }
